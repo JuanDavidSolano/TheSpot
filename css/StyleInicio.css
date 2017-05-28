@@ -1,0 +1,19 @@
+.container{
+padding-top: 80px;
+}
+.fixxed{
+    position:fixed; 
+    z-index: 999;
+}
+.mycolor{
+	color:rgba(0,0,0,0.5);
+}
+.back{
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	opacity: 0.8;
+}
+body{
+    background:gray;
+
+}
