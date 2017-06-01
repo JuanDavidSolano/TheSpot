@@ -37,7 +37,7 @@ function showEvent() {
             echo'<a>Date: </a>';
             echo'<a>' . $fila["date"] . '</a><br>';
             echo'<a>' . $fila["descripcion"] . '</a><br>';
-            echo'<center><i class="medium material-icons green-text">thumb_up </i><a class="val">   ' . $fila["good"] . '   </a>';
+            echo'<center><i class="medium material-icons green-text">thumb_up </i><a class="val">   ' . $fila["good"]. '   </a>';
             echo'<i class="medium material-icons red-text">thumb_down</i><a class="val">   ' . $fila["dislike"] . '</a><br></center>';
             echo'</span> ';
             echo'</div>';
@@ -125,22 +125,22 @@ function showEvent() {
                     </div>
                 </div>
             <?php } else { ?>
-                <?php if ($_GET['a'] != 1 & $_SESSION['tipo'] != 2) { ?>
-                    <div class="row">
-                        <div class="col s4">
-                            <div class="card-panel yellow darken-2">
+            <?php if($_GET['a']!=1 & $_SESSION['tipo']!=2){ ?>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="card-panel yellow darken-2">
+                            <center>
+                                <span class="mycolor">YOU WANT TO COME?</span>
                                 <center>
-                                    <span class="mycolor">YOU WANT TO COME?</span>
-                                    <center>
-                                        <div class="row">
-                                            <?php echo'<a  href="AddToEvent.php?id=' . $_GET['id'] . '&us=' . $_SESSION["user"] . '" class="pulse green accent-4 col s4 offset-s1 waves-effect waves-light btn" >YES</a>' ?>
-                                            <?php echo'<a href="Dislike.php?id=' . $_GET['id'] . '" class=" red col s4 offset-s2 waves-effect waves-light btn">NO</a>' ?>
-                                        </div>
-                                    </center>
+                                    <div class="row">
+                                        <?php echo'<a  href="AddToEvent.php?id=' . $_GET['id'] . '&us=' . $_SESSION["user"] . '" class="pulse green accent-4 col s4 offset-s1 waves-effect waves-light btn" >YES</a>' ?>
+                                        <?php echo'<a href="Dislike.php?id=' . $_GET['id'] .'" class=" red col s4 offset-s2 waves-effect waves-light btn">NO</a>' ?>
+                                    </div>
                                 </center>
-                            </div>
+                            </center>
                         </div>
                     </div>
+                </div>
                 <?php } ?>
             <?php } ?>
         </div>

@@ -20,7 +20,7 @@ function showEvents() {
         echo'<div class="card-image">';
         echo'<img class="img" src="assets/imgevents/' . $fila["img"] . '">';
         echo'<span class="card-title back">' . $fila["name"] . '</span>';
-        echo'<a href="Event.php?id='.$fila["id"].'&a=0&e=0&user='.$fila["name"].'" class="btn-floating halfway-fab waves-effect amber darken-3"><i class="material-icons">add</i></a>';
+        echo'<a href="verif.php?id='.$fila["id"].'&a=0&e=0&user='.$fila["user"].'" class="btn-floating halfway-fab waves-effect amber darken-3"><i class="material-icons">add</i></a>';
         if ($_SESSION['tipo'] == 3) {
             echo'<a href="Event.php?id='.$fila["id"].'&e=1&user='.$fila["name"].'" class="btn-floating material-icons left waves-effect halfway-fab waves-light red"><i class="material-icons">delete</i></a>';
         }
