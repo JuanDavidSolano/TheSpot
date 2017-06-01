@@ -1,10 +1,12 @@
 <?php
 
 session_start();
-
-
 include 'conexion.php';
-$user = $_GET["us"];
+
+if (!isset($_SESSION["user"])) {
+//    header("Location:index.php");
+}
+$user = $_SESSION['user'];
 $idE = $_GET["id"];
 $e = 0;
 $query = "SELECT * FROM users WHERE user = '$user'";
@@ -18,7 +20,7 @@ if ($filas["favs"] != null) {
     $tam = count($favs);
     for ($i = 0; $i <= $tam - 1; $i++) {
         if ($favs[$i] == $idE) {
-            $e = TRUE;
+            $e = true;
         }
     }
     if (!$e) {
@@ -36,7 +38,37 @@ if ($filas["favs"] != null) {
             $query = "UPDATE eventos SET participants='$user' WHERE id='$idE'";
             $result = mysqli_query($conexion, $query);
         }
+        $new=$filas2["good"]+1;
+        print_r($new);
+        $query = "UPDATE eventos SET good='$new' WHERE id='$idE'";
+        $result = mysqli_query($conexion, $query);
+        $newas=$filas2["dislike"]-1;
+        if($newas>0){
+        $query4 = "UPDATE eventos SET dislike='$new' WHERE id='$idE'";
+        $result = mysqli_query($conexion, $query4);
+        }
     }
-
+}else{
+        $query = "UPDATE users SET favs='$idE' WHERE user='$user'";
+        $result = mysqli_query($conexion, $query);
+        $new = $filas2["slots"] + 1;
+        $query = "UPDATE eventos SET slots='$new' WHERE id='$idE'";
+        $result = mysqli_query($conexion, $query);
+        if ($filas2["participants"] != "") {
+            $new = $filas2["participants"] . "," . $user;
+            $query = "UPDATE eventos SET participants='$new' WHERE id='$idE'";
+            $result = mysqli_query($conexion, $query);
+        } else {
+            $query = "UPDATE eventos SET participants='$user' WHERE id='$idE'";
+            $result = mysqli_query($conexion, $query);
+        }
+        $new=$filas2["good"]+1;
+        $query4 = "UPDATE eventos SET good='$new' WHERE id='$idE'";
+        $result = mysqli_query($conexion, $query4);
+        $newas=$filas2["dislike"]-1;
+        if($newas>0){
+        $query4 = "UPDATE eventos SET dislike='$newas' WHERE id='$idE'";
+        $result = mysqli_query($conexion, $query4);
+        }
 }
-header("Location:Event.php?id=$idE&e=0");
+header("Location:Event.php?id=$idE&e=0&a=1");
