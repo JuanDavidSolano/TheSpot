@@ -1,6 +1,6 @@
 <?php
 include 'conexion.php';
-//Recibir los datos}
+//Recibir los datos
 
 if (!empty($_POST)) {
     $name = $_POST["name"];
@@ -26,7 +26,7 @@ if (!empty($_POST)) {
             if (!$result) {
                 $error = 'Error in registration process';
             } else {
-                header("location:Index.php");
+                header("location:index.php");
             }
             mysqli_free_result($result);
         }
@@ -50,7 +50,7 @@ if (!empty($_POST)) {
                 <input type="text" id="user" name="user" placeholder="User" class="input-48" required>
                 <input type="password" id="password" name="password" placeholder="Password" class="input-48" required>
                 <input type="submit" value="Register" class="btn-register">
-                <p class="form__link">Already have an account? <a href="Index.php"> Log-In</a></p>
+                <p class="form__link">Already have an account? <a href="index.php"> Log-In</a></p>
                 <p><?php echo isset($error) ? utf8_decode($error) : ''; ?></p>
             </div>
         </form>

@@ -4,45 +4,43 @@ include 'conexion.php';
 if (!isset($_SESSION["user"])) {
     header("Location:index.php");
 }
-$user = $_SESSION['user'];
-$query = "SELECT * FROM users WHERE user = '$user'";
-$result = mysqli_query($conexion, $query);
-$filas = $result->fetch_assoc();
 
-function showEvents() {
+function showFavs() {
     include 'conexion.php';
-    $query = "SELECT * FROM eventos";
+    $user = $_SESSION['user'];
+    $query = "SELECT * FROM users WHERE user = '$user'";
     $result = mysqli_query($conexion, $query);
-    $filas = mysqli_num_rows($result);
-    while ($fila = mysqli_fetch_assoc($result)) {
-        echo'<div class="col s6">';
-        echo'<div class="card">';
-        echo'<div class="card-image">';
-        echo'<img class="img" src="assets/imgevents/' . $fila["img"] . '">';
-        echo'<span class="card-title back">' . $fila["name"] . '</span>';
-        echo'<a href="Event.php?id='.$fila["id"].'&e=0&user='.$fila["name"].'" class="btn-floating halfway-fab waves-effect amber darken-3"><i class="material-icons">add</i></a>';
-        if ($_SESSION['tipo'] == 3) {
-            echo'<a href="Event.php?id='.$fila["id"].'&e=1&user='.$fila["name"].'" class="btn-floating material-icons left waves-effect halfway-fab waves-light red"><i class="material-icons">delete</i></a>';
+    $filas = $result->fetch_assoc();
+    $favs = preg_split("~,~", $filas["favs"]);
+    $tam = count($favs);
+    if ($filas["favs"]!="") {
+        for ($i = 0; $i <= $tam - 1; $i++) {
+            $query = "SELECT * FROM eventos WHERE id = '$favs[$i]'";
+            $result = mysqli_query($conexion, $query);
+            $fila = $result->fetch_assoc();
+            echo'<div class="col s6">';
+            echo'<div class="card">';
+            echo'<div class="card-image">';
+            echo'<img class="img" src="assets/imgevents/' . $fila["img"] . '">';
+            echo'<span class="card-title back">' . $fila["name"] . '</span>';
+            echo'<a href="Event.php?id=' . $fila["id"] . '&e=0" class="btn-floating halfway-fab waves-effect amber darken-3"><i class="material-icons">add</i></a>';
+            echo'<a href="RemoveFavorite.php?id=' . $fila["id"] . '&us=' . $user . '" class="btn-floating material-icons left waves-effect halfway-fab waves-light red"><i class="material-icons">delete</i></a>';
+            echo'</div>';
+            echo'<div class="card-content prueba">';
+            echo'<p>' . $fila["descripcion"] . '</p>';
+            echo'</div>';
+            echo'</div>';
+            echo'</div>';
         }
-        echo'</div>';
-        echo'<div class="card-content prueba">';
-        if ($_SESSION['tipo'] != 2) {
-            echo'<a href="AddToEvent.php?id=' . $fila["id"] . '&us=' . $_SESSION["user"] . '" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons ">check</i></a>';
-        }
-        echo'<p>' . $fila["descripcion"] . '</p>';
-        echo'</div>';
-        echo'</div>';
-        echo'</div>';
     }
 }
 ?>
-
 <html>
-    <link href="css/StyleInicio.css" type="text/css" rel="stylesheet"/>
+    <link href="css/StyleFavorites.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet"> 
     <head>
         <meta charset="UTF-8">
-        <title>Inicio</title>
+        <title>Favorites</title>
         <!-- Compiled and minified CSS -->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
@@ -81,7 +79,7 @@ function showEvents() {
         <div class="container black-text">
             <div class="row">
                 <?php
-                showEvents();
+                showFavs();
                 ?>
             </div>
         </div>
@@ -92,7 +90,7 @@ function showEvents() {
             $(document).ready(function () {
                 $(".button-collapse").sideNav();
             })
-
+            
         </script>
     </body>
 

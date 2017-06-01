@@ -1,22 +1,25 @@
 .container{
-	padding-top: 80px;
+    padding-top: 80px;
 }
 .fixxed{
-	position:fixed; 
-	z-index: 999;
+    position:fixed; 
+    z-index: 999;
 }
 .mycolor{
-	color:rgba(0,0,0,0.5);
+    color:rgba(0,0,0,0.5);
 }
 .back{
-	background-color: rgba(0,0,0,0.5);
-	width: 100%;
-	opacity: 0.8;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    opacity: 0.8;
 }
 body{
-	background:gray;
+    background:url(../img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
 
 }
 .mybuttonColor{
-	background: linear-gradient(#FFDA63, #FFB940);
+    background: linear-gradient(#FFDA63, #FFB940);
 }
